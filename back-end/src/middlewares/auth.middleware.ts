@@ -6,10 +6,10 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     if (!authHeader) {
         return res.status(401).json({ message: 'No token provided' });
     }
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(' ')[1]; //Bearer TOKEN
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'myextremelysecretkey');
-        (req as any).user = decoded; // Stores userID
+        (req as any).user = decoded; // Guarda la informarcion del usuario en la req
         next();
     } catch (error) {
         return res.status(401).json({ message: 'Invalid token' });
